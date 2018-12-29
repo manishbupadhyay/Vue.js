@@ -17,16 +17,26 @@
 </head>
 <body>
    <div id="root">
-        <h1> {{ title }} </h1>
+        <h1 v-show="wantToShow"> {{ title }} </h1>
         <h1> {{ myArray[0] }}</h1>
         <h1>{{ myObjectArray[1].age }}</h1>
+        <h1>{{ sayHi() }}</h1>
+        <img v-bind:src="myPicture.src" v-bind:alt="myPicture.alt" v-bind:href="myPicture.href">
+        <div v-html="code"></div>
+        <input v-model="input" @keyup.enter="output">
+        <h1>{{ input }}</h1>
+        <button class="btn btn-primary" v-on:click="btnClick">Click me !</button>
    </div> 
 </body>
 <script type="text/javascript">
-new Vue({
+var vm = new Vue({
     el: "#root",
     data: {
-        title:"vue beginner",
+        title:"Welcome",
+        input:"Hi",
+        wantToShow: true,
+        myPicture:{src:"./dev.jpg", alt:"dev", href:"#"},
+        code:"<p><h1>Text</h1></p>",
         number: 5,
         booleanValue: true,
         myArray:["Manish", 28, true],
@@ -36,6 +46,17 @@ new Vue({
             {name:"Munna Bhaiya", age: 32}
 
         ]
+    },
+    methods:{
+        sayHi: function(){
+            return "Hi," + this.myArray[0];
+        },
+        btnClick: function(){
+            alert("Button Clicked");
+        },
+        output: function(){
+            alert(this.input * 10);
+        }
     }
 })
 
